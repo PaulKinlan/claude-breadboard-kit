@@ -1,0 +1,50 @@
+{
+  "name": "@paulkinlan/openai-breadboard-kit",
+  "version": "1.0.0",
+  "description": "A Kit that allows you to build Breadboard graphs for OpenAI.",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "FORCE_COLOR=1 ava",
+    "build": "FORCE_COLOR=1 tsc --b",
+    "watch": "FORCE_COLOR=1 tsc --b --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulkinlan/openai-breadboard-kit.git"
+  },
+  "ava": {
+    "files": [
+      "tests/**/*.ts"
+    ],
+    "workerThreads": false,
+    "typescript": {
+      "rewritePaths": {
+        "./": "dist/"
+      },
+      "compile": false
+    }
+  },
+  "author": "Paul Kinlan",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@ava/typescript": "^4.0.0",
+    "@types/node": "^18.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "ava": "^5.2.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@google-labs/breadboard": "^0.0.2",
+    "@google-labs/graph-runner": "^0.0.1",
+    "@google-labs/llm-starter": "^0.0.1",
+    "gpt-3-encoder": "^1.1.4",
+    "openai": "^3.3.0"
+  }
+}
