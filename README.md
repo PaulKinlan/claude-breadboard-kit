@@ -1,22 +1,22 @@
-# Open AI Google Labs Breadboard
+# "Google Labs Breadboard" Kit for the OpenAI API
 
-The LLM Starter Kit is a collection of [Breadboard](https://github.com/google/labs-prototypes/tree/main/seeds/breadboard) nodes that are helpful for building LLM-based (Generative AI) applications.
+The OpenAI Breadboard Kit is a collection of [Breadboard](https://github.com/google/labs-prototypes/tree/main/seeds/breadboard) nodes that are helpful for building LLM-based (Generative AI) applications using the OpenAI API.
 
 ## Installing
 
-LLM Starter Kit requires Node version >=v19.0.0. To install:
+OpenAI Breadboard Kit requires Node version >=v19.0.0. To install:
 
 ```sh
-npm install @google-labs/llm-starter
+npm install @paulkinlan/openai-breadboard-kit
 ```
 
 ## Node Types
 
-Here are all node handlers that are included in the LLM Starter Kit.
+Here are all node handlers that are included in the OpenAI Breadboard Kit
 
 ### The `generateText` node
 
-This is a [PaLM API](https://developers.generativeai.google/) text completion node. This node is probably the main reason this starter kit exists. To produce useful output, the node needs an `PALM_KEY` input and the `text` input.
+This is an [OpenAI API](https://platform.openai.com/docs) text completion node. To produce useful output, the node needs an `OPENAI_API_KEY` input and the `text` input and the `model` to run it against.
 
 #### Example:
 
@@ -24,8 +24,8 @@ Given this input:
 
 ```json
 {
-  "PALM_KEY": "<your API key>",
-  "text": "How old is planet Earth?"
+  "OPENAI_API_KEY": "<your API key>",
+  "text": "How much wood can a woodchuck chuck?"
 }
 ```
 
@@ -33,7 +33,7 @@ The node will produce this output:
 
 ```json
 {
-  "completion": "It is about 4.5 billion years old."
+  "completion": "The exact amount a woodchuck can chuck is unknown, but it is believed that they can chuck about 700 pounds of wood in a day."
 }
 ```
 
@@ -41,7 +41,7 @@ The node will produce this output:
 
 - `OPENAI_API_KEY` required, must contain the Google Cloud Platform API key for the project has the "Generative Language API" API enabled.
 - `text` required, sent as the prompt for the completion.
-- `stopSequences` optional array of strings. These will be passed as the stop sequences to the completion API.
+- `model` the name of the model OpenAI that you want to use.
 
 #### Outputs:
 
