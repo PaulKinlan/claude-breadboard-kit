@@ -45,4 +45,4 @@ The node will produce this output:
 
 #### Outputs:
 
-- `completion` - result of the PaLM API text completion.
+- `completion` - result of the OpenAI API text completion.
