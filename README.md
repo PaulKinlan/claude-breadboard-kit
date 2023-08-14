@@ -14,7 +14,7 @@ npm install @paulkinlan/openai-breadboard-kit
 
 Here are all node handlers that are included in the OpenAI Breadboard Kit
 
-### The `generateText` node
+### The `generateCompletion` node
 
 This is an [OpenAI API](https://platform.openai.com/docs) text completion node. To produce useful output, the node needs an `OPENAI_API_KEY` input and the `text` input and the `model` to run it against.
 
@@ -39,7 +39,7 @@ The node will produce this output:
 
 #### Inputs:
 
-- `OPENAI_API_KEY` required, must contain the Google Cloud Platform API key for the project has the "Generative Language API" API enabled.
+- `OPENAI_API_KEY` required, must contain the OpenAI API key.
 - `text` required, sent as the prompt for the completion.
 - `model` the name of the model OpenAI that you want to use.
 
