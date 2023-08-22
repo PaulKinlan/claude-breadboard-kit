@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDirs": [
+      "src",
+      "tests"
+    ],
     "composite": true,
     "declaration": true,
     "declarationMap": true,
@@ -20,6 +24,5 @@
     "sourceMap": true,
     "strict": true
   },
-  "include": ["./src/**/*"],
   "exclude": ["./dist/**/*"]
 }

@@ -2,12 +2,12 @@
   "name": "@paulkinlan/openai-breadboard-kit",
   "version": "1.0.0",
   "description": "A Kit that allows you to build Breadboard graphs for OpenAI.",
-  "main": "./dist/index.js",
-  "exports": "./dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "exports": "./dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "type": "module",
   "files": [
-    "dist"
+    "dist/src"
   ],
   "scripts": {
     "test": "FORCE_COLOR=1 ava",
