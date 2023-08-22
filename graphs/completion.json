@@ -13,6 +13,12 @@
       "in": "text"
     },
     {
+      "from": "input-model",
+      "to": "generateCompletion-1",
+      "out": "model",
+      "in": "model"
+    },
+    {
       "from": "generateCompletion-1",
       "to": "output-1",
       "out": "completion",
@@ -38,6 +44,13 @@
       "type": "input",
       "configuration": {
         "message": "What is your prompt?"
+      }
+    },
+    {
+      "id": "input-model",
+      "type": "input",
+      "configuration": {
+        "message": "What is your model?"
       }
     },
     {

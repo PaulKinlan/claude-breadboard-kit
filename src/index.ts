@@ -15,9 +15,12 @@ import type {
 } from "@google-labs/breadboard";
 
 import generateCompletion from "./nodes/generate-completion.js";
+import generateEmbedding from "./nodes/generate-embedding.js";
+
 
 const coreHandlers = {
-  generateCompletion
+  generateCompletion,
+  generateEmbedding
 };
 
 /**
@@ -43,6 +46,14 @@ export class OpenAI implements Kit {
     const { $id, ...rest } = config;
     return this.#nodeFactory("generateCompletion", { ...rest }, $id);
   }
+
+  generateEmbedding(
+    config: OptionalIdConfiguration = {}
+  ): BreadboardNode {
+    const { $id, ...rest } = config;
+    return this.#nodeFactory("generateEmbedding", { ...rest }, $id);
+  }
 }
 
 export type GenerateCompletionNodeType = ReturnType<OpenAI["generateCompletion"]>;
+export type GenerateEmbeddingNodeType = ReturnType<OpenAI["generateEmbedding"]>;

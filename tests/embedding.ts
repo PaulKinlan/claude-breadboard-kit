@@ -3,19 +3,21 @@ import { OpenAI } from "@paulkinlan/openai-breadboard-kit";
 import path from "path";
 import test from 'ava';
 
-test('completion', async (t) => {
+test('embedding', async (t) => {
 
   const board = await Board.load(
-    path.join(process.cwd(), "graphs", "completion.json")
+    path.join(process.cwd(), "graphs", "embedding.json")
   );
 
   board.addKit(OpenAI);
 
   const result = await board.runOnce({
-    model: "text-davinci-003",
+    model: "text-embedding-ada-002",
     text: "How much wood can a woodchuck chuck?",
   });
 
-  t.regex(result.text as string, /^\n\n/);
+  t.true(result != undefined);
+  t.true(result.text != undefined);
+  t.is(((result.text as any[])[0] as any).object, "embedding");
 })
 

@@ -1,0 +1,66 @@
+{
+  "edges": [
+    {
+      "from": "secrets-2",
+      "to": "generateEmbedding-1",
+      "out": "OPENAI_API_KEY",
+      "in": "OPENAI_API_KEY"
+    },
+    {
+      "from": "input-prompt",
+      "to": "generateEmbedding-1",
+      "out": "text",
+      "in": "input"
+    },
+    {
+      "from": "input-model",
+      "to": "generateEmbedding-1",
+      "out": "model",
+      "in": "model"
+    },
+    {
+      "from": "generateEmbedding-1",
+      "to": "output-1",
+      "out": "embedding",
+      "in": "text"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "generateEmbedding-1",
+      "type": "generateEmbedding"
+    },
+    {
+      "id": "secrets-2",
+      "type": "secrets",
+      "configuration": {
+        "keys": [
+          "OPENAI_API_KEY"
+        ]
+      }
+    },
+    {
+      "id": "input-prompt",
+      "type": "input",
+      "configuration": {
+        "message": "What is your prompt?"
+      }
+    },
+    {
+      "id": "input-model",
+      "type": "input",
+      "configuration": {
+        "message": "What is your model?"
+      }
+    },
+    {
+      "id": "output-1",
+      "type": "output"
+    }
+  ],
+  "kits": [
+    {
+      "url": "npm:@google-labs/llm-starter"
+    }
+  ]
+}
