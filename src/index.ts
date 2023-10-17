@@ -14,8 +14,7 @@ import type {
   OptionalIdConfiguration,
 } from "@google-labs/breadboard";
 
-import generateCompletion from "./nodes/generate-completion.js";
-
+import generateCompletion, { GenerateCompletionInputs, GenerateCompletionOutputs } from "./nodes/generate-completion.js";
 
 const coreHandlers = {
   generateCompletion
@@ -40,9 +39,9 @@ export class Claude implements Kit {
 
   generateCompletion(
     config: OptionalIdConfiguration = {}
-  ): BreadboardNode {
+  ): BreadboardNode<GenerateCompletionInputs, GenerateCompletionOutputs> {
     const { $id, ...rest } = config;
-    return this.#nodeFactory("generateCompletion", { ...rest }, $id);
+    return this.#nodeFactory.create("generateCompletion", { ...rest }, $id);
   }
 }
 
