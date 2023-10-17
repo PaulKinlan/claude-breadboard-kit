@@ -39,6 +39,7 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
     throw new Error("Text completion requires `CLAUDE_API_KEY` input");
   if (!values.text) throw new Error("Text completion requires `text` input");
 
+  // TODO: use https://github.com/anthropics/anthropic-tokenizer-typescript
   const inputTokenCount = encode(values.text).length;
   const maxTokens = values.maxTokens || 100_000 - inputTokenCount;
 
