@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  NodeHandlers
-} from "@google-labs/graph-runner";
 import type {
   BreadboardNode,
   Kit,
   NodeFactory,
+  NodeHandlers,
   OptionalIdConfiguration,
 } from "@google-labs/breadboard";
 
@@ -41,7 +39,7 @@ export class Claude implements Kit {
     config: OptionalIdConfiguration = {}
   ): BreadboardNode<GenerateCompletionInputs, GenerateCompletionOutputs> {
     const { $id, ...rest } = config;
-    return this.#nodeFactory.create("generateCompletion", { ...rest }, $id);
+    return this.#nodeFactory.create(this, "generateCompletion", { ...rest }, $id);
   }
 }
 

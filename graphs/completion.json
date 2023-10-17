@@ -56,11 +56,13 @@
     {
       "id": "output-1",
       "type": "output"
-    }
-  ],
-  "kits": [
-    {
-      "url": "npm:@google-labs/llm-starter"
-    }
-  ]
+    }],
+    "kits": [
+      {
+        "url": "npm:@google-labs/llm-starter"
+      },
+      {
+        "url": "npm:./index.js"
+      }
+    ]
 }
