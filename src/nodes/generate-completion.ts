@@ -6,7 +6,7 @@
 
 import type { InputValues, OutputValues } from "@google-labs/graph-runner";
 import { encode } from 'gpt-3-encoder';
-import { Configuration, OpenAIApi } from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 
 export type GenerateCompletionOutputs = OutputValues & {
   completion: string;
@@ -17,6 +17,10 @@ export type GenerateCompletionInputs = {
    * The model to use for text completion.
    */
   model: string;
+   /**
+   * The number of tokens to use in text completion.
+   */
+  maxTokens: number;
   /**
    * Prompt for text completion.
    */
@@ -24,49 +28,39 @@ export type GenerateCompletionInputs = {
   /**
    * The OPEN AI Platform API key
    */
-  OPENAI_API_KEY: string;
+  CLAUDE_API_KEY: string;
 };
-
-const modelTokenCounts: Record<string, number> = {
-  'gpt-4': 8192,
-  'gpt-4-32k': 32768,
-  'gpt-3.5-turbo': 4096,
-  'gpt-3.5-turbo-16k': 16384,
-  'text-davinci-003': 4097,
-  'text-davinci-002': 4097
-}
 
 export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> => {
   const values = inputs as GenerateCompletionInputs;
-  const model = values.model || "text-davinci-003";
-
-  if (model in modelTokenCounts === false) throw new Error(`Model ${model} is not supported`);
-  if (!values.OPENAI_API_KEY)
-    throw new Error("Text completion requires `OPENAI_API_KEY` input");
+  const model = values.model || "claude-2";
+  
+  if (!values.CLAUDE_API_KEY)
+    throw new Error("Text completion requires `CLAUDE_API_KEY` input");
   if (!values.text) throw new Error("Text completion requires `text` input");
 
   const inputTokenCount = encode(values.text).length;
-  const maxTokens = modelTokenCounts[model] - inputTokenCount;
+  const maxTokens = values.maxTokens || 100_000 - inputTokenCount;
 
-  if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of ${modelTokenCounts[model]} tokens`);
-
-  const configuration = new Configuration({
-    apiKey: values.OPENAI_API_KEY
-  });
+  if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens`);
 
   let output = "";
 
   try {
-
-    const openai = new OpenAIApi(configuration);
-
-    const response = await openai.createCompletion({
-      model: model,
-      prompt: values.text,
-      max_tokens: maxTokens,
+    const anthropic = new Anthropic({
+      apiKey: values.CLAUDE_API_KEY,
+    });
+    
+    const completion = await anthropic.completions.create({
+      model,
+      max_tokens_to_sample: maxTokens,
+      prompt: `${Anthropic.HUMAN_PROMPT} ${values.text}${Anthropic.AI_PROMPT}`, // TODO - make this a parameter
+      stream: false, // TODO - make this a parameter
     });
 
-    output = (response.data.choices.length > 0) ? response.data.choices[0].text || "No data" : "No data";
+    console.log(completion.completion);
+  
+    output = (completion.completion.length > 0) ? completion.completion : "No data";
   } catch (error: any) {
     if (error.response) {
       console.log(error.response.status);

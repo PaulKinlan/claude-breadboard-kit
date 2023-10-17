@@ -3,8 +3,8 @@
     {
       "from": "secrets-2",
       "to": "generateCompletion-1",
-      "out": "OPENAI_API_KEY",
-      "in": "OPENAI_API_KEY"
+      "out": "CLAUDE_API_KEY",
+      "in": "CLAUDE_API_KEY"
     },
     {
       "from": "input-prompt",
@@ -35,7 +35,7 @@
       "type": "secrets",
       "configuration": {
         "keys": [
-          "OPENAI_API_KEY"
+          "CLAUDE_API_KEY"
         ]
       }
     },
