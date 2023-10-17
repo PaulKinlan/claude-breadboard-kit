@@ -57,8 +57,6 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
       prompt: `${Anthropic.HUMAN_PROMPT} ${values.text}${Anthropic.AI_PROMPT}`, // TODO - make this a parameter
       stream: false, // TODO - make this a parameter
     });
-
-    console.log(completion.completion);
   
     output = (completion.completion.length > 0) ? completion.completion : "No data";
   } catch (error: any) {
