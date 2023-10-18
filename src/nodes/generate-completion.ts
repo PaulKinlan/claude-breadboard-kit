@@ -5,7 +5,8 @@
  */
 
 import type { InputValues, OutputValues } from "@google-labs/breadboard";
-import { encode } from 'gpt-3-encoder';
+import { countTokens } from '@anthropic-ai/tokenizer';
+
 import Anthropic from "@anthropic-ai/sdk";
 
 export type GenerateCompletionOutputs = OutputValues & {
@@ -39,8 +40,7 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
     throw new Error("Text completion requires `CLAUDE_API_KEY` input");
   if (!values.text) throw new Error("Text completion requires `text` input");
 
-  // TODO: use https://github.com/anthropics/anthropic-tokenizer-typescript
-  const inputTokenCount = encode(values.text).length;
+  const inputTokenCount = countTokens(values.text);
   const maxTokens = values.maxTokens || 100_000 - inputTokenCount;
 
   if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens`);
