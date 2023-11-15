@@ -4,43 +4,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {
-  BreadboardNode,
-  Kit,
-  NodeFactory,
-  NodeHandlers,
-  OptionalIdConfiguration,
-} from "@google-labs/breadboard";
-
+import { KitBuilder } from "@google-labs/breadboard/kits";
 import generateCompletion, { GenerateCompletionInputs, GenerateCompletionOutputs } from "./nodes/generate-completion.js";
 
 const coreHandlers = {
   generateCompletion
 };
 
-/**
- * Syntactic sugar around the `coreHandlers` library.
- */
-export class Claude implements Kit {
-  url = "npm:@paulkinlan/claude-breadboard-kit";
-  #nodeFactory: NodeFactory;
-  #handlers: NodeHandlers;
 
-  get handlers() {
-    return this.#handlers;
-  }
+const ClaudeKit = new KitBuilder({
+  url: "npm:@paulkinlan/claude-breadboard-kit",
+  title: "ClaudeBreadboardKit",
+  description: "A set of nodes for using Anthropic's Claude",
+  version: "0.0.1",
+}).build(coreHandlers);
 
-  constructor(nodeFactory: NodeFactory) {
-    this.#nodeFactory = nodeFactory;
-    this.#handlers = coreHandlers;
-  }
+export default ClaudeKit;
+export { ClaudeKit }
 
-  generateCompletion(
-    config: OptionalIdConfiguration = {}
-  ): BreadboardNode<GenerateCompletionInputs, GenerateCompletionOutputs> {
-    const { $id, ...rest } = config;
-    return this.#nodeFactory.create(this, "generateCompletion", { ...rest }, $id);
-  }
-}
+export type GenerateCompletionNodeType = ReturnType<typeof generateCompletion>;
+export type { GenerateCompletionInputs, GenerateCompletionOutputs };
+export type ClaudeKit = InstanceType<typeof ClaudeKit>;
 
-export type GenerateCompletionNodeType = ReturnType<Claude["generateCompletion"]>;
