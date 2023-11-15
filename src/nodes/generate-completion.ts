@@ -43,7 +43,7 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
   const inputTokenCount = countTokens(values.text);
   const maxTokens = values.maxTokens || 100_000 - inputTokenCount;
 
-  if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens`);
+  if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens. Your input was ${inputTokenCount} tokens.`);
 
   let output = "";
 
