@@ -35,15 +35,16 @@
   "devDependencies": {
     "@ava/typescript": "^4.0.0",
     "@types/node": "^18.16.3",
-    "@google-labs/llm-starter": "*",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "ava": "^5.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "*",
-    "@anthropic-ai/tokenizer": "*",
-    "@google-labs/breadboard": "^0.5.0"
+    "@anthropic-ai/sdk": "^0.10.1",
+    "@anthropic-ai/tokenizer": "^0.0.4",
+    "@google-labs/breadboard": "^0.5.0",
+    "@google-labs/llm-starter": "^0.2.1",
+    "js-tiktoken": "^1.0.8"
   }
 }
