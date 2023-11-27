@@ -4,10 +4,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { InputValues, OutputValues } from "@google-labs/breadboard";
-import { countTokens } from '@anthropic-ai/tokenizer';
-
 import Anthropic from "@anthropic-ai/sdk";
+
+import claude from "@anthropic-ai/tokenizer/claude.json" assert { type: "json" };
+import type { InputValues, OutputValues } from "@google-labs/breadboard";
+import { Tiktoken, TiktokenBPE } from "js-tiktoken";
+
+export function countTokens(text: string): number {
+  const tokenizer = getTokenizer();
+  const encoded = tokenizer.encode(text.normalize("NFKC"));
+  return encoded.length;
+}
+
+export function getTokenizer(): Tiktoken {
+  const tiktokenBPE: TiktokenBPE = {
+    pat_str: claude.pat_str,
+    special_tokens: claude.special_tokens,
+    bpe_ranks: claude.bpe_ranks,
+  };
+  return new Tiktoken(tiktokenBPE);
+}
 
 export type GenerateCompletionOutputs = OutputValues & {
   completion: string;
