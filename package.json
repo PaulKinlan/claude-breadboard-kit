@@ -1,6 +1,6 @@
 {
   "name": "@paulkinlan/claude-breadboard-kit",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "A Kit that allows you to build Breadboard graphs for Claude.",
   "main": "./dist/src/index.js",
   "exports": "./dist/src/index.js",
