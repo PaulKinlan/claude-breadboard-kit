@@ -34,7 +34,7 @@ export type GenerateCompletionInputs = {
    * The model to use for text completion.
    */
   model: string;
-   /**
+  /**
    * The number of tokens to use in text completion.
    */
   maxTokens: number;
@@ -48,10 +48,12 @@ export type GenerateCompletionInputs = {
   CLAUDE_API_KEY: string;
 };
 
-export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> => {
+export default async (
+  inputs: InputValues
+): Promise<GenerateCompletionOutputs> => {
   const values = inputs as GenerateCompletionInputs;
   const model = values.model || "claude-2";
-  
+
   if (!values.CLAUDE_API_KEY)
     throw new Error("Text completion requires `CLAUDE_API_KEY` input");
   if (!values.text) throw new Error("Text completion requires `text` input");
@@ -59,7 +61,10 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
   const inputTokenCount = countTokens(values.text);
   const maxTokens = values.maxTokens || 100_000 - inputTokenCount;
 
-  if (maxTokens <= 0) throw new Error(`Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens. Your input was ${inputTokenCount} tokens.`);
+  if (maxTokens <= 0)
+    throw new Error(
+      `Text completion requires 'text' input to be shorter than the model's max token count of 100,000 tokens. Your input was ${inputTokenCount} tokens.`
+    );
 
   let output = "";
 
@@ -67,15 +72,16 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
     const anthropic = new Anthropic({
       apiKey: values.CLAUDE_API_KEY,
     });
-    
+
     const completion = await anthropic.completions.create({
       model,
       max_tokens_to_sample: maxTokens,
       prompt: `${Anthropic.HUMAN_PROMPT} ${values.text}${Anthropic.AI_PROMPT}`, // TODO - make this a parameter
       stream: false, // TODO - make this a parameter
     });
-  
-    output = (completion.completion.length > 0) ? completion.completion : "No data";
+
+    output =
+      completion.completion.length > 0 ? completion.completion : "No data";
   } catch (error: any) {
     if (error.response) {
       console.log(error.response.status);
@@ -83,7 +89,7 @@ export default async (inputs: InputValues): Promise<GenerateCompletionOutputs> =
     } else {
       console.log(error.message);
     }
-    output = "error"
+    output = "error";
   }
 
   return { completion: output };
