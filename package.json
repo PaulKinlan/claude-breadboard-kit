@@ -34,7 +34,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@ava/typescript": "^4.0.0",
-    "@google-labs/core-kit": "^0.2.2",
+    "@google-labs/core-kit": "^0.4.0",
     "@types/node": "^18.16.3",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
@@ -44,7 +44,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.10.1",
     "@anthropic-ai/tokenizer": "^0.0.4",
-    "@google-labs/breadboard": "^0.10.1",
+    "@google-labs/breadboard": "^0.11.2",
     "js-tiktoken": "^1.0.8"
   }
 }
